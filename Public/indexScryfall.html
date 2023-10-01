@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../src/styles/style.css">
+  <link rel="shortcut icon" type="imagex/png" href="/src/img/1p1MPMTG.png">
+
+  <title>MAGIC DECKS</title>
+</head>
+
+<body>
+  <h1>Livro de Cartas</h1>
+
+  <form action="." method="GET">
+    <label>
+      <div class="input-group">
+        <input type="text" name="card-name" id="input-field" placeholder="Nome da Carta" />
+        <button type="submit" class="submit-button"><span>Pesquisar</span></button>
+      </div>
+    </label>
+  </form>
+
+  <h2 class="Cards-pesquisados"></h2>
+  <div class="cards-container"></div>
+
+  <div id="cardModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="klose()">&times;</span>
+      <h2 id="modalCardName"></h2>
+      <img id="modalCardImage" src="" alt="" class="modal-image">
+      <div class="contentInfoCard">
+        <p>Mana Cost: <span id="modalManaCost"></span></p>
+        <p>Tipo: <span id="modalType"></span></p>
+        <p>Set Nome: <span id="modalSetName"></span></p>
+        <p>Texto: <span id="modalText"></span></p>
+        <p>Artista: <span id="modalArtist"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="../src/js/mtgScryFall.js"></script>
+</body>
+
+</html>

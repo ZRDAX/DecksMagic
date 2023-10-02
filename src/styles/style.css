@@ -202,3 +202,40 @@ label{
     width: 25px;
     height: 25px;
   }
+  #modalCardName{
+    color: #2E2E2E;
+  }
+
+  /* card modal */
+
+  h2{
+    color: #f1f1f1;
+  }
+
+  .deck-card-image {
+    width: 50px;
+    height: 27.335px;
+    object-fit: cover;
+    object-position: 100% -13%;
+}
+.deck-card-image:hover{
+  transition: 0.5s;
+  background: linear-gradient(90deg, #02FFFE 0%, #6481FF 100%);
+  cursor: pointer;
+}
+
+.deck-card-nameImg{
+  width: 200px;
+  height: 27px;
+  object-fit: cover;
+  object-position: 100% 0%;
+  cursor: pointer;
+}
+.deck-card:hover{
+  width: 251px;
+  height: 32px;
+  padding-left: 10px;
+  transition: 0.5s;
+  /* background: linear-gradient(90deg, #02FFFE 0%, #6481FF 100%); */
+  cursor: pointer;
+}

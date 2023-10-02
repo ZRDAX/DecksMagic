@@ -51,11 +51,11 @@ const manaIcons = {
     "{E}": "https://svgs.scryfall.io/card-symbols/E.svg",
     "{TK}": "https://svgs.scryfall.io/card-symbols/TK.svg",
     "{PW}": "https://svgs.scryfall.io/card-symbols/PW.svg",
-    "{½}": "https://svgs.scryfall.io/card-symbols/HALF.svg",    
+    "{½}": "https://svgs.scryfall.io/card-symbols/HALF.svg",
     "{A}": "https://svgs.scryfall.io/card-symbols/A.svg",
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
     const PesquisaInput = $("[name=card-name]");
     const title = $(".Cards-pesquisados");
     const cardsContainer = $(".cards-container");
@@ -96,7 +96,7 @@ $(document).ready(function() {
             if (cardData.image_uris) {
                 const { image_uris, name } = cardData;
                 const cardElement = createCardElement(image_uris.normal, name);
-                cardElement.click(function() {
+                cardElement.click(function () {
                     showModal(cardData);
                 });
                 cardsContainer.append(cardElement);
@@ -119,11 +119,11 @@ $(document).ready(function() {
             const { data } = await response.json();
 
             if (data && data.length > 0) {
-                data.forEach(function(card) {
+                data.forEach(function (card) {
                     if (card.image_uris) {
                         const { image_uris, name } = card;
                         const cardElement = createCardElement(image_uris.normal, name);
-                        cardElement.click(function() {
+                        cardElement.click(function () {
                             showModal(card);
                         });
                         cardsContainer.append(cardElement);
@@ -150,7 +150,7 @@ $(document).ready(function() {
         const matches = manaCost.match(regex);
 
         if (matches) {
-            matches.forEach(function(match) {
+            matches.forEach(function (match) {
                 const symbol = match.trim();
                 const iconUrl = manaIcons[symbol];
                 if (iconUrl) {
@@ -184,12 +184,34 @@ $(document).ready(function() {
         modalText.text(cardData.oracle_text || "N/A");
         modalArtist.text(cardData.artist || "N/A");
 
-        const addButton = $("<button>").text("Adicionar ao Deck");
-        addButton.click(function() {
+
+        function createCardElement(card) {
+            const cardElement = $("<div>").addClass("deck-card");
+            const cardImage = $("<img>")
+                .addClass("deck-card-image")
+                .attr("src", card.image_uris.art_crop)
+                .attr("alt", card.name);
+            const cardNameImg = $("<img>")
+                .addClass("deck-card-nameImg")
+                .attr("src", card.image_uris.border_crop);
+
+            cardElement.append(cardImage, cardNameImg);
+            return cardElement;
+        }
+
+        // Remova todos os botões "Adicionar ao Deck" existentes
+        $(".add-to-deck-button").remove();
+
+        const addButton = $("<button>")
+            .text("Adicionar ao Deck")
+            .addClass("add-to-deck-button");
+
+        addButton.click(function () {
             const deckCardElement = createCardElement(cardData);
             $(".SBdeck").append(deckCardElement);
             klose(); // Feche o modal ao adicionar a carta ao deck
         });
+
 
         // Adicionar o botão abaixo da carta
         $("#modalCardImage").after(addButton);
@@ -197,7 +219,7 @@ $(document).ready(function() {
         cardModal.css("display", "block");
 
         modalCardImage.click(klose);
-        cardModal.click(function(event) {
+        cardModal.click(function (event) {
             if (event.target === cardModal[0]) {
                 klose();
             }
@@ -207,6 +229,17 @@ $(document).ready(function() {
     function klose() {
         cardModal.css("display", "none");
     }
+
+    // Função para remover uma carta do deck-card
+    function removeCardFromDeckCard(cardElement) {
+        cardElement.remove();
+    }
+
+    // Adicione um ouvinte de evento de clique às cartas no deck-card
+    $(".SBdeck").on("click", ".deck-card", function () {
+        removeCardFromDeckCard($(this));
+    });
+
 
     $("form").submit(formSubmitted);
 });

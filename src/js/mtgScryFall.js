@@ -1,3 +1,4 @@
+
 // Mapeamento de símbolos de mana para URLs das imagens SVG
 const manaIcons = {
     "{W}": "https://svgs.scryfall.io/card-symbols/W.svg",
@@ -54,144 +55,159 @@ const manaIcons = {
     "{A}": "https://svgs.scryfall.io/card-symbols/A.svg",
 };
 
-const PesquisaInput = document.querySelector("[name=card-name]");
-const title = document.querySelector(".Cards-pesquisados");
-const cardsContainer = document.querySelector(".cards-container");
-const cardModal = document.getElementById("cardModal");
+$(document).ready(function() {
+    const PesquisaInput = $("[name=card-name]");
+    const title = $(".Cards-pesquisados");
+    const cardsContainer = $(".cards-container");
+    const cardModal = $("#cardModal");
 
-function formSubmitted(event) {
-    event.preventDefault();
-    const searchTerm = PesquisaInput.value.trim();
+    function formSubmitted(event) {
+        event.preventDefault();
+        const searchTerm = PesquisaInput.val().trim();
 
-    if (!searchTerm) {
-        // Se a pesquisa estiver vazia, mostre cartas aleatórias
-        title.textContent = "Cartas Aleatórias:";
-        title.style.color = "rgb(252, 252, 252)";
-        PesquisaInput.value = "";
-        cardsContainer.innerHTML = "";
+        if (!searchTerm) {
+            // Se a pesquisa estiver vazia, mostre cartas aleatórias
+            title.text("Cartas Aleatórias:");
+            title.css("color", "rgb(252, 252, 252)");
+            PesquisaInput.val("");
+            cardsContainer.empty();
 
-        getRandomCards();
-    } else {
-        title.textContent = `${searchTerm} cards:`;
-        title.style.color = "rgb(252, 252, 252)";
-        PesquisaInput.value = "";
-        cardsContainer.innerHTML = "";
-
-        searchScryfall(searchTerm);
-    }
-}
-
-async function getRandomCards() {
-    try {
-        const response = await fetch("https://api.scryfall.com/cards/random");
-
-        if (!response.ok) {
-            throw new Error(`Erro na solicitação: ${response.status}`);
-        }
-
-        const cardData = await response.json();
-
-        if (cardData.image_uris) {
-            const { image_uris, name } = cardData;
-            const cardElement = createCardElement(image_uris.normal, name);
-            cardElement.addEventListener("click", () => showModal(cardData));
-            cardsContainer.appendChild(cardElement);
+            getRandomCards();
         } else {
-            cardsContainer.textContent = "Nenhuma carta aleatória encontrada.";
+            title.text(`${searchTerm} cards:`);
+            title.css("color", "rgb(252, 252, 252)");
+            PesquisaInput.val("");
+            cardsContainer.empty();
+
+            searchScryfall(searchTerm);
         }
-    } catch (error) {
-        console.error(`Erro na solicitação: ${error.message}`);
     }
-}
 
-async function searchScryfall(searchTerm) {
-    try {
-        const response = await fetch(`https://api.scryfall.com/cards/search?q=${encodeURIComponent(searchTerm)}`);
+    async function getRandomCards() {
+        try {
+            const response = await fetch("https://api.scryfall.com/cards/random");
 
-        if (!response.ok) {
-            throw new Error(`Erro na solicitação: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`Erro na solicitação: ${response.status}`);
+            }
+
+            const cardData = await response.json();
+
+            if (cardData.image_uris) {
+                const { image_uris, name } = cardData;
+                const cardElement = createCardElement(image_uris.normal, name);
+                cardElement.click(function() {
+                    showModal(cardData);
+                });
+                cardsContainer.append(cardElement);
+            } else {
+                cardsContainer.text("Nenhuma carta aleatória encontrada.");
+            }
+        } catch (error) {
+            console.error(`Erro na solicitação: ${error.message}`);
         }
+    }
 
-        const { data } = await response.json();
+    async function searchScryfall(searchTerm) {
+        try {
+            const response = await fetch(`https://api.scryfall.com/cards/search?q=${encodeURIComponent(searchTerm)}`);
 
-        if (data && data.length > 0) {
-            data.forEach((card) => {
-                if (card.image_uris) {
-                    const { image_uris, name } = card;
-                    const cardElement = createCardElement(image_uris.normal, name);
-                    cardElement.addEventListener("click", () => showModal(card));
-                    cardsContainer.appendChild(cardElement);
+            if (!response.ok) {
+                throw new Error(`Erro na solicitação: ${response.status}`);
+            }
+
+            const { data } = await response.json();
+
+            if (data && data.length > 0) {
+                data.forEach(function(card) {
+                    if (card.image_uris) {
+                        const { image_uris, name } = card;
+                        const cardElement = createCardElement(image_uris.normal, name);
+                        cardElement.click(function() {
+                            showModal(card);
+                        });
+                        cardsContainer.append(cardElement);
+                    }
+                });
+            } else {
+                cardsContainer.text("Nenhuma carta encontrada.");
+            }
+        } catch (error) {
+            console.error(`Erro na solicitação: ${error.message}`);
+        }
+    }
+
+    function createCardElement(imageUrl, altText) {
+        const cardElement = $("<img>").addClass("card-img");
+        cardElement.attr("src", imageUrl);
+        cardElement.attr("alt", altText);
+        return cardElement;
+    }
+
+    // Função para mapear os símbolos de mana para elementos de imagem
+    function mapManaSymbolsToIcons(manaCost) {
+        const regex = /{[^{}]+}/g;
+        const matches = manaCost.match(regex);
+
+        if (matches) {
+            matches.forEach(function(match) {
+                const symbol = match.trim();
+                const iconUrl = manaIcons[symbol];
+                if (iconUrl) {
+                    const manaIcon = $("<img>").attr("src", iconUrl).addClass("mana-icon");
+                    manaIcon.attr("alt", "");
+                    manaIcon.addClass("mana-icon");
+
+                    manaCost = manaCost.replace(new RegExp(symbol, "g"), manaIcon[0].outerHTML);
                 }
             });
-        } else {
-            cardsContainer.textContent = "Nenhuma carta encontrada.";
         }
-    } catch (error) {
-        console.error(`Erro na solicitação: ${error.message}`);
+
+        return manaCost;
     }
-}
 
-function createCardElement(imageUrl, altText) {
-    const cardElement = document.createElement("img");
-    cardElement.className = "card-img";
-    cardElement.src = imageUrl;
-    cardElement.alt = altText;
-    return cardElement;
-}
+    function showModal(cardData) {
+        const modalCardName = $("#modalCardName");
+        const modalCardImage = $("#modalCardImage");
+        const modalManaCost = $("#modalManaCost");
+        const modalType = $("#modalType");
+        const modalSetName = $("#modalSetName");
+        const modalText = $("#modalText");
+        const modalArtist = $("#modalArtist");
 
-// Função para mapear os símbolos de mana para elementos de imagem
-function mapManaSymbolsToIcons(manaCost) {
-    const regex = /{[^{}]+}/g;
-    const matches = manaCost.match(regex);
-  
-    if (matches) {
-      matches.forEach((match) => {
-        const symbol = match.trim();
-        const iconUrl = manaIcons[symbol];
-        if (iconUrl) {
-          const manaIcon = document.createElement("img");
-          manaIcon.src = iconUrl;
-          manaIcon.alt = "";
-          manaIcon.className = "mana-icon";
-  
-          manaCost = manaCost.replace(new RegExp(symbol, 'g'), manaIcon.outerHTML);
-        }
-      });
+        modalCardName.text(cardData.name);
+        modalCardImage.attr("src", cardData.image_uris.border_crop);
+        modalCardImage.attr("alt", cardData.name);
+        modalManaCost.html(mapManaSymbolsToIcons(cardData.mana_cost || "N/A"));
+        modalType.text(cardData.type_line || "N/A");
+        modalSetName.text(cardData.set_name || "N/A");
+        modalText.text(cardData.oracle_text || "N/A");
+        modalArtist.text(cardData.artist || "N/A");
+
+        const addButton = $("<button>").text("Adicionar ao Deck");
+        addButton.click(function() {
+            const deckCardElement = createCardElement(cardData);
+            $(".SBdeck").append(deckCardElement);
+            klose(); // Feche o modal ao adicionar a carta ao deck
+        });
+
+        // Adicionar o botão abaixo da carta
+        $("#modalCardImage").after(addButton);
+
+        cardModal.css("display", "block");
+
+        modalCardImage.click(klose);
+        cardModal.click(function(event) {
+            if (event.target === cardModal[0]) {
+                klose();
+            }
+        });
     }
-  
-    return manaCost;
-  }
 
-function showModal(cardData) {
-    const modalCardName = document.getElementById("modalCardName");
-    const modalCardImage = document.getElementById("modalCardImage");
-    const modalManaCost = document.getElementById("modalManaCost");
-    const modalType = document.getElementById("modalType");
-    const modalSetName = document.getElementById("modalSetName");
-    const modalText = document.getElementById("modalText");
-    const modalArtist = document.getElementById("modalArtist");
+    function klose() {
+        cardModal.css("display", "none");
+    }
 
-    modalCardName.textContent = cardData.name;
-    modalCardImage.src = cardData.image_uris.border_crop;
-    modalCardImage.alt = cardData.name;
-    modalManaCost.innerHTML = mapManaSymbolsToIcons(cardData.mana_cost || "N/A");
-    modalType.textContent = cardData.type_line || "N/A";
-    modalSetName.textContent = cardData.set_name || "N/A";
-    modalText.textContent = cardData.oracle_text || "N/A";
-    modalArtist.textContent = cardData.artist || "N/A";
-
-    cardModal.style.display = "block";
-
-    modalCardImage.addEventListener("click", klose);
-    cardModal.addEventListener("click", (event) => {
-        if (event.target === cardModal) {
-            klose();
-        }
-    });
-}
-
-function klose() {
-    cardModal.style.display = "none";
-}
-
-document.querySelector("form").addEventListener("submit", formSubmitted);
+    $("form").submit(formSubmitted);
+});
+//document.querySelector("form").addEventListener("submit", formSubmitted);

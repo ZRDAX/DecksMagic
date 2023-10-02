@@ -3,8 +3,9 @@ const manaIcons = {
     "{W}": "/src/svg/WhiteManaColor.svg",
     "{U}": "/src/svg/BlueManaColor.svg",
     "{B}": "/src/svg/BlackManaColor.svg",
-    "{R}": "/src/svg/RedManaColor.svg",
-    "{G}": "/src/svg/GreenManaColor.svg",
+    "{R}": "https://svgs.scryfall.io/card-symbols/R.svg",
+    "{G}": "https://svgs.scryfall.io/card-symbols/G.svg",
+    "{T}": "/src/svg/Tap.svg",
 };
 
 const PesquisaInput = document.querySelector("[name=card-name]");

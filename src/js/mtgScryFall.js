@@ -172,7 +172,7 @@ function showModal(cardData) {
     const modalArtist = document.getElementById("modalArtist");
 
     modalCardName.textContent = cardData.name;
-    modalCardImage.src = cardData.image_uris.normal;
+    modalCardImage.src = cardData.image_uris.border_crop;
     modalCardImage.alt = cardData.name;
     modalManaCost.innerHTML = mapManaSymbolsToIcons(cardData.mana_cost || "N/A");
     modalType.textContent = cardData.type_line || "N/A";

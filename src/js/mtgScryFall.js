@@ -166,6 +166,38 @@ $(document).ready(function () {
         return manaCost;
     }
 
+    async function fetchCardPrices(cardName) {
+        try {
+            const response = await fetch(`https://api.scryfall.com/cards/named?fuzzy=${encodeURIComponent(cardName)}`);
+    
+            if (!response.ok) {
+                throw new Error(`Erro na solicitação: ${response.status}`);
+            }
+    
+            const cardData = await response.json();
+            
+            // Verifique se há preços disponíveis no objeto da carta
+            if (cardData.prices) {
+                const normalPrice = cardData.prices.usd || "N/A";
+                const foilPrice = cardData.prices.usd_foil || "N/A";
+    
+                // Atualize os elementos HTML com os preços
+                $("#normalPrice").text(normalPrice);
+                $("#foilPrice").text(foilPrice);
+            } else {
+                // Se não houver informações de preços, exiba uma mensagem padrão
+                $("#normalPrice").text("N/A");
+                $("#foilPrice").text("N/A");
+            }
+        } catch (error) {
+            console.error(`Erro na solicitação: ${error.message}`);
+            // Em caso de erro, defina os preços como "N/A"
+            $("#normalPrice").text("N/A");
+            $("#foilPrice").text("N/A");
+        }
+    }
+    
+
     function showModal(cardData) {
         const modalCardName = $("#modalCardName");
         const modalCardImage = $("#modalCardImage");
@@ -183,6 +215,9 @@ $(document).ready(function () {
         modalSetName.text(cardData.set_name || "N/A");
         modalText.text(cardData.oracle_text || "N/A");
         modalArtist.text(cardData.artist || "N/A");
+        // Chame a função para buscar os preços da carta
+        fetchCardPrices(cardData.name);
+        
 
 
         function createCardElement(card) {

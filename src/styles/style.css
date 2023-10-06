@@ -3,7 +3,21 @@
 }
 
 *{
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font-family: 'Ubuntu', sans-serif;
     overflow-x:hidden;
+}
+nav{
+  background-color: #2E2E2E;  
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  background-color: #333;
+  width: 100%;
+  padding-bottom: 10px;
+  margin-top: -10px;
 }
 
 body{
@@ -13,6 +27,9 @@ body{
     background-attachment: fixed;
     width: 100%;
     height: 100%;
+}
+.subtitulo{
+  text-align: center;
 }
 
 .form-row{
@@ -30,14 +47,19 @@ body{
     flex-wrap: wrap;
     justify-content: space-evenly, left;
     width: 50vw;
-    height: 428px;
+    height: 420px;
     background-color: #2E2E2E;
     border: 2px solid #f1f1f1;
     padding: 10px;
   }  
 h1{
+    padding-top: 2%;
     text-align: center;
     color: rgb(252, 252, 252);
+}
+h2{
+  padding-top: 2%;
+  color: #fff;
 }
 input{
     position: relative;
@@ -153,7 +175,7 @@ label{
   }
   
   .modal-content {
-    background-color: #fff;
+    background: radial-gradient(#e4ebeb 20%, #cbcbe0 );
     margin: 15% auto;
     padding: 20px;
     border-radius: 5px;
@@ -190,10 +212,15 @@ label{
     background-color: #aaa;
   }
 
+  .contentInfoCard{
+    border: 2px solid #000;
+    width: 36.5%;
+  }
+
   .modal-image {
     display: flex;
-    max-width: 18%;
-    padding-left: 10vw; 
+    max-width: 25%;
+    padding-left: 8vw; 
     height: auto;
   }
   .mana-icon{
@@ -208,8 +235,23 @@ label{
 
   /* card modal */
 
-  h2{
-    color: #f1f1f1;
+  .counteinerMax{
+    display: flex;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  .Cards-pesquisados{
+    padding-bottom: 2vh;
+  }
+  .SbAll{
+    padding-left: 3vw;
+    width: 40%;
+  }
+  .SBdeck{
+    padding-top: 3vh;
+  }
+  #SDck{
+    padding-top: 2vh;
   }
 
   .deck-card-image {
@@ -238,4 +280,7 @@ label{
   transition: 0.5s;
   /* background: linear-gradient(90deg, #02FFFE 0%, #6481FF 100%); */
   cursor: pointer;
+}
+.deck-counter{
+  color: #f1f1f1;
 }

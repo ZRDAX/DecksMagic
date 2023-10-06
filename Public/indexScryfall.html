@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Bryan Rochadel">
+  <meta name="description" content="Site de criação de decks de Magic the Gathering.">
+  <meta name="keywords" content="Decks, MTG, MTGA, MTGO, DeckBuilder, Cards Magic the Gathering ">
   <link rel="stylesheet" href="../src/styles/style.css">
   <link rel="shortcut icon" type="imagex/png" href="/src/img/1p1MPMTG.png">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -13,7 +16,17 @@
 </head>
 
 <body>
-  <h1>Livro de Cartas</h1>
+
+  <header>
+    <nav>
+      <h1>MAGIC DECKS</h1>
+    </nav>
+  </header>
+
+  
+    
+  </div>
+  <h2 class="subtitulo">Livro de Cartas</h2>
 
   <form action="." method="GET">
     <label>
@@ -24,11 +37,19 @@
     </label>
   </form>
 
-  <h2 class="Cards-pesquisados"></h2>
-  <div class="cards-container"></div>
+<div class="counteinerMax">
+  
+  <div class="CdN">
+    <h2 class="Cards-pesquisados">Cartas</h2>
+    <div class="cards-container"></div>
+  </div>
 
-  <h2>Seu Deck</h2>
-  <div class="SBdeck"></div>
+  <div class="SbAll">
+    <h2 id="SDck">Seu Deck</h2>
+    <div class="SBdeck"></div>
+  </div>
+
+</div>
 
   
 
@@ -52,6 +73,7 @@
   </div>
 
   <script src="../src/js/mtgScryFall.js"></script>
+  
 </body>
 
 </html>

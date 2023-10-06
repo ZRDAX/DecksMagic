@@ -196,7 +196,6 @@ $(document).ready(function () {
             $("#foilPrice").text("N/A");
         }
     }
-    
 
     function showModal(cardData) {
         const modalCardName = $("#modalCardName");
@@ -205,10 +204,10 @@ $(document).ready(function () {
         const modalType = $("#modalType");
         const modalSetName = $("#modalSetName");
         const modalText = $("#modalText");
-        const modalArtist = $("#modalArtist");
+        const modalArtist = $("#modalArtist"); 
 
         modalCardName.text(cardData.name);
-        modalCardImage.attr("src", cardData.image_uris.border_crop);
+        modalCardImage.attr("src", cardData.image_uris.normal);
         modalCardImage.attr("alt", cardData.name);
         modalManaCost.html(mapManaSymbolsToIcons(cardData.mana_cost || "N/A"));
         modalType.text(cardData.type_line || "N/A");
@@ -218,8 +217,6 @@ $(document).ready(function () {
         // Chame a função para buscar os preços da carta
         fetchCardPrices(cardData.name);
         
-
-
         function createCardElement(card) {
             const cardElement = $("<div>").addClass("deck-card");
             const cardImage = $("<img>")
@@ -250,6 +247,7 @@ $(document).ready(function () {
 
         // Adicionar o botão abaixo da carta
         $("#modalCardImage").after(addButton);
+        addButton.css("border","2px solid #000")
 
         cardModal.css("display", "block");
 
@@ -273,7 +271,7 @@ $(document).ready(function () {
     // Adicione um ouvinte de evento de clique às cartas no deck-card
     $(".SBdeck").on("click", ".deck-card", function () {
         removeCardFromDeckCard($(this));
-    });
+    }); 
 
 
     $("form").submit(formSubmitted);

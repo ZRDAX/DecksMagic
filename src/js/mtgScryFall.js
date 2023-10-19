@@ -165,22 +165,23 @@ $(document).ready(function () {
 
         return manaCost;
     }
+  
 
     async function fetchCardPrices(cardName) {
         try {
             const response = await fetch(`https://api.scryfall.com/cards/named?fuzzy=${encodeURIComponent(cardName)}`);
-    
+
             if (!response.ok) {
                 throw new Error(`Erro na solicitação: ${response.status}`);
             }
-    
+
             const cardData = await response.json();
-            
+
             // Verifique se há preços disponíveis no objeto da carta
             if (cardData.prices) {
                 const normalPrice = cardData.prices.usd || "N/A";
                 const foilPrice = cardData.prices.usd_foil || "N/A";
-    
+
                 // Atualize os elementos HTML com os preços
                 $("#normalPrice").text(normalPrice);
                 $("#foilPrice").text(foilPrice);
@@ -204,7 +205,7 @@ $(document).ready(function () {
         const modalType = $("#modalType");
         const modalSetName = $("#modalSetName");
         const modalText = $("#modalText");
-        const modalArtist = $("#modalArtist"); 
+        const modalArtist = $("#modalArtist");
 
         modalCardName.text(cardData.name);
         modalCardImage.attr("src", cardData.image_uris.normal);
@@ -216,7 +217,7 @@ $(document).ready(function () {
         modalArtist.text(cardData.artist || "N/A");
         // Chame a função para buscar os preços da carta
         fetchCardPrices(cardData.name);
-        
+
         function createCardElement(card) {
             const cardElement = $("<div>").addClass("deck-card");
             const cardImage = $("<img>")
@@ -244,10 +245,10 @@ $(document).ready(function () {
             klose(); // Feche o modal ao adicionar a carta ao deck
         });
 
-
         // Adicionar o botão abaixo da carta
-        $("#modalCardImage").after(addButton);
-        addButton.css("border","2px solid #000")
+        $(".contentInfoCard").after(addButton);
+        addButton.css("border", "8px solid #333");
+        addButton.css("display", "flex");
 
         cardModal.css("display", "block");
 
@@ -271,9 +272,9 @@ $(document).ready(function () {
     // Adicione um ouvinte de evento de clique às cartas no deck-card
     $(".SBdeck").on("click", ".deck-card", function () {
         removeCardFromDeckCard($(this));
-    }); 
-
+    });
 
     $("form").submit(formSubmitted);
 });
+
 //document.querySelector("form").addEventListener("submit", formSubmitted);

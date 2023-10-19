@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTG Deck Analyzer</title>
+</head>
+<body>
+    <h1>MTG Deck Analyzer</h1>
+    <div id="deck-container">
+        <h2>Your Deck</h2>
+        <ul id="deck-list"></ul>
+    </div>
+    <div id="add-card">
+        <h2>Add Card</h2>
+        <input type="text" id="card-name" placeholder="Card Name">
+        <button id="add-button">Add</button>
+    </div>
+    <div id="curve-mana">
+        <h2>Mana Curve</h2>
+        <ul id="curve-list"></ul>
+    </div>
+    <div id="color-count">
+        <h2>Color Count</h2>
+        <ul id="color-count-list"></ul>
+    </div>
+    <canvas id="card-value-chart" width="400" height="200"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>const deck = [];
+
+        // Function to add a card to the deck
+        function addCardToDeck(cardName) {
+            deck.push(cardName);
+        }
+        
+        // Function to display the deck list
+        function displayDeck() {
+            const deckList = document.getElementById('deck-list');
+            deckList.innerHTML = '';
+        
+            deck.forEach(card => {
+                const li = document.createElement('li');
+                li.textContent = card;
+                deckList.appendChild(li);
+            });
+        }
+        
+        // Function to calculate the mana curve
+        function calculateManaCurve() {
+            const curve = {};
+        
+            deck.forEach(card => {
+                // Simulate the card's mana cost, e.g., by analyzing card text
+        
+                // For this example, let's assume a simple format: {X}{Y}{Z}...
+                const manaCost = card.match(/{[WUBRGC]}/g);
+        
+                if (manaCost) {
+                    manaCost.forEach(cost => {
+                        if (!curve[cost]) {
+                            curve[cost] = 1;
+                        } else {
+                            curve[cost]++;
+                        }
+                    });
+                }
+            });
+        
+            return curve;
+        }
+        
+        // Function to display the mana curve
+        function displayManaCurve() {
+            const curveList = document.getElementById('curve-list');
+            curveList.innerHTML = '';
+        
+            const manaCurve = calculateManaCurve();
+        
+            for (const cost in manaCurve) {
+                const li = document.createElement('li');
+                li.textContent = `${cost}: ${manaCurve[cost]}`;
+                curveList.appendChild(li);
+            }
+        }
+        
+        // Function to count colors
+        function countColors() {
+            const colorCount = {};
+        
+            deck.forEach(card => {
+                // Simulate extracting the card's color information
+        
+                // For this example, let's assume a simple format: [Color: Red]
+                const colorMatch = card.match(/\[Color: (\w+)\]/);
+        
+                if (colorMatch) {
+                    const color = colorMatch[1];
+                    if (!colorCount[color]) {
+                        colorCount[color] = 1;
+                    } else {
+                        colorCount[color]++;
+                    }
+                }
+            });
+        
+            return colorCount;
+        }
+        
+        // Function to display color count
+        function displayColorCount() {
+            const colorCountList = document.getElementById('color-count-list');
+            colorCountList.innerHTML = '';
+        
+            const colorCount = countColors();
+        
+            for (const color in colorCount) {
+                const li = document.createElement('li');
+                li.textContent = `${color}: ${colorCount[color]}`;
+                colorCountList.appendChild(li);
+            }
+        }
+        
+        // Function to create a chart
+        function createChart() {
+            const cardValueChart = document.getElementById('card-value-chart');
+            const cardNames = deck.map(card => card.substring(0, 10));
+            const cardValues = Array.from({ length: deck.length }, () => Math.random() * 10); // Simulated card values
+        
+            new Chart(cardValueChart, {
+                type: 'bar',
+                data: {
+                    labels: cardNames,
+                    datasets: [{
+                        label: 'Card Value',
+                        data: cardValues,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Event listener for the "Add" button
+        const addButton = document.getElementById('add-button');
+        addButton.addEventListener('click', () => {
+            const cardName = document.getElementById('card-name').value;
+            addCardToDeck(cardName);
+            displayDeck();
+            displayManaCurve();
+            displayColorCount();
+            createChart();
+            document.getElementById('card-name').value = '';
+        });
+        </script>
+</body>
+</html>

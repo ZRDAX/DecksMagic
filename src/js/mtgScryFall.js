@@ -197,7 +197,7 @@ $(document).ready(function () {
             $("#foilPrice").text("N/A");
         }
     }
-
+    //funçoes do modal
     function showModal(cardData) {
         const modalCardName = $("#modalCardName");
         const modalCardImage = $("#modalCardImage");
@@ -256,7 +256,7 @@ $(document).ready(function () {
         // Adicionar o botão abaixo da carta
         $(".btnnn").after(addButton);
         addButton.css("border", "2px solid #3e3e3e");
-        addButton.css("display", "flex");
+        addButton.css("display", "flex");   
         addButton.css("justify-content", "center");
         addButton.css("margin","auto");
         addButton.css("margin-top","10%");

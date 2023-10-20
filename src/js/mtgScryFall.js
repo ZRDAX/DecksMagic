@@ -240,7 +240,7 @@ $(document).ready(function () {
         $(".add-to-deck-button").remove();
 
         const addButton = $("<button>")
-            .text("Adicionar ao Deck")
+            .text("Adicionar")
             .addClass("add-to-deck-button");
 
         addButton.click(function () {
@@ -254,10 +254,12 @@ $(document).ready(function () {
         });
 
         // Adicionar o botão abaixo da carta
-        $(".modal-prices").after(addButton);
-        addButton.css("border", "2px solid #333");
+        $(".btnnn").after(addButton);
+        addButton.css("border", "2px solid #3e3e3e");
         addButton.css("display", "flex");
         addButton.css("justify-content", "center");
+        addButton.css("margin","auto");
+        addButton.css("margin-top","10%");
 
         cardModal.css("display", "block");
 
@@ -267,6 +269,10 @@ $(document).ready(function () {
                 klose();
             } else {
             }
+            var teste = document.querySelector('#input-field')
+                var teste2 = document.querySelector('.submit-button')
+                teste.style.display = 'block'
+                teste2.style.display = 'block'
         });
     }
 

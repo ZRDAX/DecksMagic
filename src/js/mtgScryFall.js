@@ -247,7 +247,7 @@ $(document).ready(function () {
 
         // Adicionar o botão abaixo da carta
         $(".contentInfoCard").after(addButton);
-        addButton.css("border", "8px solid #333");
+        addButton.css("border", "2px solid #333");
         addButton.css("display", "flex");
 
         cardModal.css("display", "block");

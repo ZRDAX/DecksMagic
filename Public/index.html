@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resident</title>
+    <link rel="stylesheet" href="../src/styles/style.css">
+    <style>
+        #background-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        .conjunto {
+            display: flex;
+            padding-bottom: 122px;
+        }
+
+        .escrita {
+            display: block;
+            width: 100%;
+        }
+
+        pre {
+            margin-top: 126px;
+            color: #fa552b;
+            font-size: 5rem;
+            width: auto;
+            border-radius: 0px 8px 8px 0px;
+            padding-bottom: 38px;
+            margin-left: 6vw;
+        }
+
+        #botão {
+            background: #3e3e3e;
+            border: none;
+            padding: 10px 20px;
+            display: inline-block;
+            font-size: 24px;
+            font-weight: 600;
+            font-family: 'Noto Sans';
+            width: 207px;
+            transform: skew(-12deg);
+            cursor: pointer;
+            border-radius: 3px;
+            height: 60px;
+            margin-left: 15vw;
+            margin-top: 49px;
+            color: rgb(255, 255, 255);
+            transition: 1s;
+            box-shadow: 4px 5px 1px rgba(0, 0, 0, 0.705);
+            overflow: hidden;
+        }
+
+        span {
+            display: inline-block;
+
+        }
+
+        button#botão::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 100%;
+            left: 0;
+            background: #1e1e1e;
+            border-radius: 3px;
+            z-index: -1;
+            transition: 0.5s;
+
+        }
+
+        button#botão:hover {
+            color: #000;
+            background: #5e5e5e;
+            transform: scale(108%);
+            transition: 1s;
+
+        }
+
+        button#botão:hover::before {
+            left: 0;
+            right: 0;
+            opacity: 1;
+            transform: scale(108%);
+            transition: .7s;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="navigation-menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="./indexScryfall.html">DeckBuilder</a></li>
+                <li><a href="#">Sobre</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+
+        <div class="conjunto">
+            <div class="escrita">
+                <pre>Magic 
+    Decks</pre>
+                <button id="botão">
+                    <span>Começar</span>
+                </button>
+            </div>
+
+            <video src="../src/video/Magic 2015 - Duels of the Planeswalkers Teaser Trailer.mp4" autoplay muted loop
+                id="background-video"></video>
+
+    </main>
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 mb-50">
+                    <div class="footer-widget">
+                        <div class="footer-logo">
+                            <span>POWERED BY SCRYFALL</span>
+                            <a href="indexScryfall.html"><img src="https://artgame.scryfall.com/assets/header-logo.svg"
+                                    class="img-fluid" alt="logo"></a>
+                        </div>
+                        <div class="footer-text">
+                            <p>A API Scryfall é uma plataforma de dados voltada para o jogo de cartas colecionáveis
+                                Magic: The
+                                Gathering. Ela fornece informações detalhadas sobre cartas, conjuntos, preços e
+                                muito mais, permitindo
+                                que desenvolvedores acessem e integrem esses dados em aplicativos relacionados ao
+                                MTG.</p>
+                        </div>
+                        <div class="footer-social-icon">
+                            <span>Redes Sociais</span>
+                            <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                            <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+                            <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-area">
+            <div class="container">
+                <div class="row">
+                    <div class="slaaaa">
+                        <div class="copyright-text">
+                            <p>Copyright &copy; 2023, All Right Reserved <a href="https://github.com/ZRDAX">Bryan
+                                    Rochadel</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

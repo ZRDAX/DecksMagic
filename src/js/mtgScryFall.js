@@ -165,7 +165,7 @@ $(document).ready(function () {
 
         return manaCost;
     }
-  
+
 
     async function fetchCardPrices(cardName) {
         try {
@@ -207,6 +207,10 @@ $(document).ready(function () {
         const modalText = $("#modalText");
         const modalArtist = $("#modalArtist");
 
+        var teste = document.querySelector('#input-field')
+        var teste2 = document.querySelector('.submit-button')
+        teste.style.display = 'none'
+        teste2.style.display = 'none'
         modalCardName.text(cardData.name);
         modalCardImage.attr("src", cardData.image_uris.normal);
         modalCardImage.attr("alt", cardData.name);
@@ -243,12 +247,17 @@ $(document).ready(function () {
             const deckCardElement = createCardElement(cardData);
             $(".SBdeck").append(deckCardElement);
             klose(); // Feche o modal ao adicionar a carta ao deck
+            var teste = document.querySelector('#input-field')
+            var teste2 = document.querySelector('.submit-button')
+            teste.style.display = 'block'
+            teste2.style.display = 'block'
         });
 
         // Adicionar o botão abaixo da carta
-        $(".contentInfoCard").after(addButton);
+        $(".modal-prices").after(addButton);
         addButton.css("border", "2px solid #333");
         addButton.css("display", "flex");
+        addButton.css("justify-content", "center");
 
         cardModal.css("display", "block");
 
@@ -256,6 +265,7 @@ $(document).ready(function () {
         cardModal.click(function (event) {
             if (event.target === cardModal[0]) {
                 klose();
+            } else {
             }
         });
     }

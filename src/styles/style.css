@@ -162,18 +162,20 @@ label {
 }
 
 .modal-content {
-  background: radial-gradient(#e4ebeb 20%, #cbcbe0);
+  background: transparent;
   margin: 15% auto;
   padding: 20px;
   border-radius: 5px;
   max-width: 80%;
   text-align: center;
   position: relative;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
 }
 .teste11{
+  padding: 0px 150px;
+  padding-bottom: 100px;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-direction: row;
   flex-wrap: nowrap;
 }
@@ -219,7 +221,7 @@ label {
     -webkit-border-radius: 4px;
     border-radius: 4px;
     background: #fff;
-    margin: 0 0 0 300px;
+    margin: 0 0 0 0px;
     max-width: 420px;
     padding: 0 0 15px 0;
     font-size: 16px;

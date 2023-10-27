@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resident</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+           color: white;
+          
+        }
+        #background-video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+          }
+          nav{
+            margin-top: 10px;
+            padding-left:10px ;
+          }
+          a{
+            text-decoration: none;
+            color: aliceblue;
+          }
+          </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Fale conosco</a>
+            <a href="#">Outras noticias</a>
+        </nav>
+    </header>
+
+    <video src="../src/video/Resident Evil 4 - Launch Trailer-[onlinevideoconverter.com].mp4" autoplay muted loop id="background-video"></video>
+</body>
+</html>

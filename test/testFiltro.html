@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Magic Cards by Color</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        select {
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        #card-list {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <h1>Search Magic Cards by Color</h1>
+    <label for="color-select">Select a color:</label>
+    <select id="color-select">
+        <option value="">All Colors</option>
+        <!-- As opções de cores serão preenchidas dinamicamente usando JavaScript -->
+    </select>
+    <div id="card-list"></div>
+
+
+    <script>
+        // Mapeamento de cores para IDs de catálogos
+        const colorCatalog = {
+            "White": "W",
+            "Blue": "U",
+            "Black": "B",
+            "Red": "R",
+            "Green": "G"
+        };
+
+        const colorSelect = document.getElementById("color-select");
+        const cardList = document.getElementById("card-list");
+
+        // Preenche o menu suspenso de cores com base nos catálogos
+        for (const color in colorCatalog) {
+            const option = document.createElement("option");
+            option.value = colorCatalog[color];
+            option.textContent = color;
+            colorSelect.appendChild(option);
+        }
+
+        // Função para buscar cartas com base na cor selecionada
+        async function searchCardsByColor(color) {
+            try {
+                // Limpa a lista de cartas
+                cardList.innerHTML = "";
+
+                // Faz uma solicitação à API Scryfall para buscar cartas pela cor
+                const response = await fetch(`https://api.scryfall.com/cards/search?q=c:${color}`);
+                if (!response.ok) {
+                    throw new Error(`Erro na solicitação: ${response.status}`);
+                }
+                const data = await response.json();
+
+                // Exibe as cartas encontradas
+                data.data.forEach((card) => {
+                    const cardElement = document.createElement("div");
+                    cardElement.className = "card";
+                    cardElement.innerHTML = `<h2>${card.name}</h2><img src="${card.image_uris.normal}" alt="${card.name}">`;
+                    cardList.appendChild(cardElement);
+                });
+            } catch (error) {
+                console.error(`Erro na solicitação: ${error.message}`);
+            }
+        }
+
+        // Listener para o evento de seleção de cor
+        colorSelect.addEventListener("change", () => {
+            const selectedColor = colorSelect.value;
+            searchCardsByColor(selectedColor);
+        });
+
+        // Carrega todas as cartas inicialmente
+        searchCardsByColor("");
+
+    </script>
+</body>
+
+</html>

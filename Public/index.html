@@ -1,46 +1,87 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>  
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../src/styles/style.css">
+    <title>MagicDecks</title>
 
-    <title>MAGIC DECKS</title>
+    <meta name="author" content="Bryan Rochadel">
+  <meta name="description" content="Site de criação de decks de Magic the Gathering.">
+  <meta name="keywords" content="Decks, MTG, MTGA, MTGO, DeckBuilder, Cards Magic the Gathering ">
+
+    <link rel="stylesheet" href="../src/styles/style.css">
+    <link rel="shortcut icon" type="imagex/png" href="/src/img/1p1MPMTG.png">
 </head>
 
 <body>
+    <header>
+        <nav>
+            <ul class="navigation-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="./indexScryfall.html">DeckBuilder</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
 
-    <h1>Livro de Cartas</h1>
-    
-    <form action="." method="GET">
-        <label>
-            <div class="input-group">
-                <input type="text" name="card-name" id="input-field" placeholder="Nome da Carta" />
-                <button type="submit" class="submit-button"><span>Pesquisar</span></button>
+        <div class="conjunto">
+            <div class="escrita">
+                <pre>Magic 
+    Decks</pre>
+                <button id="botão">
+                    <a href="indexScryfall.html">
+                        <span class="spann">Começar</span>
+                    </a>
+                </button>
             </div>
-        </label>
-    </form>
-        
-            <h2 class="Cards-pesquisados"></h2>
-            <div class="cards-container"></div>
-        </div>
-    
 
-    <div id="cardModal" class="modal">
-        <div class="modal-content">
-          <span class="close" onclick="klose()">&times;</span>
-          <h2 id="modalCardName"></h2>
-          <img id="modalCardImage" src="" alt="" class="modal-image">
-          <p>Mana Cost: <span id="modalManaCost"></span></p>
-          <p>Tipo: <span id="modalType"></span></p>
-          <p>Set Nome: <span id="modalSetName"></span></p>
-          <p>Texto: <span id="modalText"></span></p>
-          <p>Artista: <span id="modalArtist"></span></p>
+            <video src="../src/video/Magic 2015 - Duels of the Planeswalkers Teaser Trailer.mp4" autoplay muted loop
+                id="background-video"></video>
+
+    </main>
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 mb-50">
+                    <div class="footer-widget">
+                        <div class="footer-logo">
+                            <span>POWERED BY SCRYFALL</span>
+                            <a href="indexScryfall.html"><img src="https://artgame.scryfall.com/assets/header-logo.svg"
+                                    class="img-fluid" alt="logo"></a>
+                        </div>
+                        <div class="footer-text">
+                            <p>A API Scryfall é uma plataforma de dados voltada para o jogo de cartas colecionáveis
+                                Magic: The
+                                Gathering. Ela fornece informações detalhadas sobre cartas, conjuntos, preços e
+                                muito mais, permitindo
+                                que desenvolvedores acessem e integrem esses dados em aplicativos relacionados ao
+                                MTG.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    
-    <script src="../src/js/mtg.js"></script>
+        <div class="copyright-area">
+            <div class="container">
+                <div class="row">
+                    <div class="slaaaa">
+                        <div class="copyright-text">
+                            <p>Copyright &copy; 2023, All Right Reserved <a href="https://github.com/ZRDAX">Bryan
+                                    Rochadel</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
+
 </html>

@@ -1,0 +1,61 @@
+<!-- chatgpt Momentos kkkkk -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck Builder</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Deck Builder</h1>
+
+    <label for="card-name">Pesquisar Carta:</label>
+    <input type="text" id="card-name" placeholder="Nome da Carta">
+    <button id="search-button">Pesquisar</button>
+
+    <h2>Cartas Disponíveis</h2>
+    <div id="available-cards"></div>
+
+    <h2>Seu Deck</h2>
+    <div id="deck"></div>
+
+    <script>
+
+        $('#search-button').click(() => {
+            const cardName = $('#card-name').val();
+            searchCard(cardName);
+        });
+
+        function searchCard(cardName) {
+            $.get(`https://api.scryfall.com/cards/named?fuzzy=${encodeURIComponent(cardName)}`, (data) => {
+                const card = data;
+
+                // Exibir a carta nas cartas disponíveis
+                const cardElement = createCardElement(card);
+                $('#available-cards').append(cardElement);
+
+                // Adicionar um botão para adicionar a carta ao deck
+                const addButton = $('<button>').text('Adicionar ao Deck');
+                addButton.click(() => {
+                    const deckCardElement = createCardElement(card);
+                    $('#deck').append(deckCardElement);
+                });
+
+                // Adicionar o botão abaixo da carta
+                cardElement.append(addButton);
+            });
+        }
+
+        function createCardElement(card) {
+            const cardElement = $('<div>').addClass('card');
+            cardElement.append($('<h3>').text(card.name));
+            cardElement.append($('<p>').text(`Mana Cost: ${card.mana_cost || 'N/A'}`));
+            cardElement.append($('<p>').text(`Tipo: ${card.type_line || 'N/A'}`));
+            cardElement.append($('<p>').text(`Texto: ${card.oracle_text || 'N/A'}`));
+
+            return cardElement;
+        }
+    </script>
+</body>
+</html>
